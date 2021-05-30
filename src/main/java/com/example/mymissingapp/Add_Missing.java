@@ -21,6 +21,8 @@ import com.example.mymissingapp.modle.Todo;
 import com.example.mymissingapp.modle.TodoRoomDatabase;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
+
 public class Add_Missing extends AppCompatActivity {
 
     //todo  1 : data not more then my date (time)
@@ -94,8 +96,7 @@ public class Add_Missing extends AppCompatActivity {
                     insertSingleTodo(need_add_food,need_add_reasons,need_add_time_meal,need_add_date,false);
                     missingFood.getEditText().setText("");
 
-
-
+                    getAllTodos();
 
 
                 }
@@ -114,6 +115,23 @@ public class Add_Missing extends AppCompatActivity {
         });
 
 
+    }
+
+    public void getAllTodos() {
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Todo> todoList = TodoRoomDatabase.getInstance(getApplicationContext())
+                        .todoDao()
+                        .getAllTodos();
+
+                MainActivity.todoList_frag_one = todoList;
+
+                Log.d("todo", "run: " + todoList.toString());
+            }
+        });
+        thread.start();
     }
     public void msg(String text){
         Toast.makeText(Add_Missing.this,text,Toast.LENGTH_LONG)

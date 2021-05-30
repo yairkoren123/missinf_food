@@ -6,6 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.mymissingapp.MainActivity;
+import com.example.mymissingapp.modle.Todo;
+
+import java.util.List;
+
 
 public class FragmentAdapter extends FragmentStateAdapter {
     public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
@@ -14,17 +19,17 @@ public class FragmentAdapter extends FragmentStateAdapter {
 
     @NonNull
     @Override
-    public Fragment createFragment(int position) {
+    public Fragment createFragment(int position) { // pass value with fragments
 
         switch (position)
         {
             case 1 :
-                return new SecondFragment();
+                return new SecondFragment(MainActivity.todoList_frag_one);
             case 2 :
                 return new ThirdFragment();
         }
 
-        return new FirstFragment();
+        return new FirstFragment(MainActivity.todoList_frag_one);
     }
 
     @Override

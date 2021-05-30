@@ -23,6 +23,10 @@ public interface TodoDao {
     @Delete
     void deleteTodo(Todo todo);
 
+    @Query("SELECT * FROM todo_table WHERE todo_date LIKE :date")
+    List<Todo> getAllCompletedTodosById(String date);
+
+
     @Update
     void updateTodo(Todo todo);
 

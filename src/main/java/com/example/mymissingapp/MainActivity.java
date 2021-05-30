@@ -18,11 +18,16 @@ import com.example.mymissingapp.modle.TodoRoomDatabase;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     // values
     Context context;
+
+    public List<Todo> todoList;
+
 
     // layout
     Button add_missing_item,see_table,allGood;
@@ -30,12 +35,22 @@ public class MainActivity extends AppCompatActivity {
 
     // intents
     public static final String EXTRA_DATE = "DATE";
+    public static final String EXTRA_LIST = "LIST";
+
+    public static  List<Todo> todoList_frag_one ;
+    public static  List<Todo> todoList_frag_two ;
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getAllTodos();
+        todoList_frag_two = null;
 
 
         // remove Menu
@@ -76,8 +91,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this
                         ,Get_table_Activity.class);
-                intent.putExtra(EXTRA_DATE,date_now);
-                startActivity(intent);
+                //intent.putExtra(EXTRA_LIST,todoList);
+                if (todoList_frag_one == null){
+
+                }else {
+
+
+                    startActivity(intent);
+                }
             }
         });
 
@@ -86,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 
 
@@ -98,20 +120,24 @@ public class MainActivity extends AppCompatActivity {
         Log.d("saved", "insertSingleTodo:  is in !!!");
     }
 
-//    public void getAllTodos(View view) {
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                List<Todo> todoList = TodoRoomDatabase.getInstance(getApplicationContext())
-//                        .todoDao()
-//                        .getAllTodos();
-//
-//                Log.d(TAG, "run: " + todoList.toString());
-//            }
-//        });
-//        thread.start();
-//    }
-//
+
+
+    public void getAllTodos() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Todo> todoList = TodoRoomDatabase.getInstance(getApplicationContext())
+                        .todoDao()
+                        .getAllTodos();
+
+                todoList_frag_one = todoList;
+
+                Log.d("todo", "run: " + todoList.toString());
+            }
+        });
+        thread.start();
+    }
+
 //    public void deleteATodo(View view) {
 //
 //        new Thread(new Runnable() {
@@ -204,4 +230,5 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
 }
