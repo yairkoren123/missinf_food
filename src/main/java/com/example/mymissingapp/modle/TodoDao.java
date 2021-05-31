@@ -33,7 +33,7 @@ public interface TodoDao {
     @Insert
     void insertMultipleTodos(List<Todo> todoList);
 
-    @Query("SELECT * FROM todo_table WHERE todo_completed LIKE 1")
+    @Query("SELECT * FROM todo_table WHERE todo_completed LIKE 0")
     List<Todo> getAllCompletedTodos();
 
     @Query("DELETE FROM todo_table")

@@ -1,5 +1,6 @@
 package com.example.mymissingapp.Fragments;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,9 @@ import com.example.mymissingapp.modle.Todo;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> {
 
     String food ,time,meal,reason;
@@ -25,6 +29,12 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> {
     AppAdapter(List<Todo> _data){
         langdata = _data;
     }
+
+
+    public void setItems(List<Todo> persons){
+        this.langdata = persons;
+    }
+
 
 
     @NonNull
@@ -62,7 +72,9 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> {
         return langdata.size();
     }
 
-    public class AppViewHolder extends RecyclerView.ViewHolder{
+
+
+    public class AppViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView food_adapter,reason_adapter,date_adapter,meal_adapter;
 
@@ -75,5 +87,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> {
 
 
         }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("mee", "onClick:  " + v.getId());
+        }
     }
+
 }

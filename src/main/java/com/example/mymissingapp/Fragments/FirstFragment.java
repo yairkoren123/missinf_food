@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,6 @@ public class FirstFragment extends Fragment {
         // Required empty public constructor
         todoList_need = todoList1;
 
-        getAllTodos();
 
     }
 
@@ -68,6 +68,9 @@ public class FirstFragment extends Fragment {
         adapter = new AppAdapter(todoList_need);
         recyclerView.setAdapter(adapter);
 
+        getAllTodos();
+
+
 
 
         return listItemView;
@@ -90,9 +93,12 @@ public class FirstFragment extends Fragment {
                         .todoDao()
                         .getAllTodos();
 
-                todoList_need = todoList;
+                Looper.getMainLooper();
 
-                Log.d("todo", "run: " + todoList.toString());
+                todoList_need = todoList;
+                adapter = new AppAdapter(todoList_need);
+                recyclerView.setAdapter(adapter);
+
             }
         });
         thread.start();

@@ -25,6 +25,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:text="JAN 01 2020"
+                android:inputType="none"
                 android:textColor="@color/black"
                 android:textSize="30sp" />
 

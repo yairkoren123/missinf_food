@@ -26,7 +26,7 @@ public class FragmentAdapter extends FragmentStateAdapter {
             case 1 :
                 return new SecondFragment(MainActivity.todoList_frag_one);
             case 2 :
-                return new ThirdFragment();
+                return new ThirdFragment(MainActivity.todoList_frag_one);
         }
 
         return new FirstFragment(MainActivity.todoList_frag_one);
